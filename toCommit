@@ -1,0 +1,5 @@
+git add . 
+git commit -m 'name'
+git push origin main
+
+this should work for this project
