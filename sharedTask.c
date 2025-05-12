@@ -41,4 +41,14 @@ int main() {
  break;
    }
 
+ default: {
+// Parent fork
+int shmid = shmget(KEY, BUFF, 0666 | IPC_CREAT);
+if (shmid < 0) {
+perror("shmget has failed");
+exit(EXIT_FAILURE);
+}
+
+wait(NULL); //so child finished
+
 
