@@ -35,7 +35,6 @@ int main() {
 
  *data = 42;
  printf("Child: wrote %d to shared memory\n", *data);
- printf("Child: verifying shared memory value = %d\n", *data);
 
  shmdt(data);
  break;
@@ -51,4 +50,18 @@ exit(EXIT_FAILURE);
 
 wait(NULL); //so child finished
 
+int *data = (int *) shmat(shmid, NULL, 0);
+if (data == (int *) -1) {
+perror("shmat has failed");
+exit(EXIT_FAILURE);
+}
 
+printf("Parent: here is the shared value =%d\n", *data);
+shmdt(data);
+shmctl(shmid, IPC_RMID, NULL); //remove the mem from share
+break;
+}
+}
+
+return 0;
+}
